@@ -250,7 +250,7 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
 
   /* TICKER */
   .ticker-bar{ background:var(--ink); border-top:1px solid rgba(255,255,255,0.08); border-bottom:1px solid rgba(255,255,255,0.08); overflow:hidden; margin-top:64px; }
-  .ticker-track{ display:flex; white-space:nowrap; animation:scroll 15s linear infinite; }
+  .ticker-track{ display:flex; white-space:nowrap; animation:scroll 60s linear infinite; }
   .ticker-track span{ flex-shrink:0; }
   .ticker-bar:hover .ticker-track{ animation-play-state:paused; }
   .ticker-track span{ transition:color .2s ease; }
@@ -260,7 +260,6 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
   @keyframes scroll{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
   @media (max-width:600px){
     .ticker-track span{ font-size:9px; }
-    .ticker-track{ animation-duration:10s; }
   }
 
   /* SECTIONS */
@@ -593,7 +592,7 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
        — do not deploy this base64 version, the file is too large.
        ============================================================ -->
   <div class="hero-video-banner">
-    <video autoplay muted loop playsinline poster="hero-poster2.jpg">
+    <video autoplay muted loop playsinline webkit-playsinline="true" poster="hero-poster2.jpg">
       <source src="hero-video2.mp4" type="video/mp4">
     </video>
   </div>
@@ -955,6 +954,49 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
   const track = document.getElementById('tickerTrack');
   const doubled = [...tickerItems, ...tickerItems];
   track.innerHTML = doubled.map(t => `<span>${t}</span>`).join('');
+
+  // Set ticker speed so each name is visible ~2-4s (avg 3s), scaled to total name count.
+  // Doubled content + translateX(-50%) means one full loop = one pass through tickerItems.length names.
+  const tickerDuration = tickerItems.length * 3; // 3s average visibility per name
+  track.style.animationDuration = tickerDuration + 's';
+
+  // ============================================================
+  // MOBILE VIDEO AUTOPLAY FIX
+  // Some mobile browsers (iOS Safari, Chrome Android) block autoplay
+  // unless muted is explicitly set via JS (not just the HTML attribute),
+  // and require play() to be called after the video is ready. We also
+  // retry on first user touch/scroll as a safety net.
+  // ============================================================
+  const heroVideo = document.querySelector('.hero-video-banner video');
+  if(heroVideo){
+    heroVideo.muted = true;
+    heroVideo.setAttribute('muted', '');
+    heroVideo.playsInline = true;
+
+    const tryPlay = () => {
+      const playPromise = heroVideo.play();
+      if(playPromise !== undefined){
+        playPromise.catch(() => {
+          // Autoplay blocked — retry on first user interaction
+          const resume = () => {
+            heroVideo.play().catch(()=>{});
+            document.removeEventListener('touchstart', resume);
+            document.removeEventListener('scroll', resume);
+            document.removeEventListener('click', resume);
+          };
+          document.addEventListener('touchstart', resume, { once:true, passive:true });
+          document.addEventListener('scroll', resume, { once:true, passive:true });
+          document.addEventListener('click', resume, { once:true });
+        });
+      }
+    };
+
+    if(heroVideo.readyState >= 2){
+      tryPlay();
+    } else {
+      heroVideo.addEventListener('loadeddata', tryPlay, { once:true });
+    }
+  }
 
   // ============================================================
   // LEADERBOARD DATA SOURCE — Google Sheets CSV (Published to Web)
