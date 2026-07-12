@@ -252,7 +252,9 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
   .ticker-bar{ background:var(--ink); border-top:1px solid rgba(255,255,255,0.08); border-bottom:1px solid rgba(255,255,255,0.08); overflow:hidden; margin-top:64px; }
   .ticker-track{ display:flex; white-space:nowrap; animation:scroll 60s linear infinite; }
   .ticker-track span{ flex-shrink:0; }
-  .ticker-bar:hover .ticker-track{ animation-play-state:paused; }
+  @media (hover:hover) and (pointer:fine){
+    .ticker-bar:hover .ticker-track{ animation-play-state:paused; }
+  }
   .ticker-track span{ transition:color .2s ease; }
   .ticker-track span:hover{ color:#fff; }
   .ticker-track span{ font-family:'IBM Plex Mono'; font-size:0.82rem; color:#C7DBD0; padding:13px 32px; border-right:1px solid rgba(255,255,255,0.08); }
@@ -504,19 +506,19 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
   @media (max-width:600px){
     .lbtable-scroll{ overflow-x:hidden; }
     .lbtable-scroll table{ width:100%; table-layout:fixed; }
-    .lbtable-scroll th{ padding:8px 3px; font-size:0.52rem; letter-spacing:0; }
+    .lbtable-scroll th{ padding:8px 6px; font-size:0.44rem; letter-spacing:0; }
     .lbtable-scroll th:nth-child(1){ width:9%; }
     .lbtable-scroll th:nth-child(2){ width:34%; }
     .lbtable-scroll th:nth-child(3){ width:17%; }
     .lbtable-scroll th:nth-child(4){ width:20%; }
     .lbtable-scroll th:nth-child(5){ width:20%; }
-    .lbtable-scroll td{ padding:9px 3px; font-size:0.66rem; }
+    .lbtable-scroll td{ padding:9px 6px; font-size:0.58rem; }
     .lbtable-scroll td, .lbtable-scroll th{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .lb-trader{ gap:5px; }
-    .lb-trader b{ font-size:0.68rem; overflow:hidden; text-overflow:ellipsis; }
-    .lb-avatar-sm{ width:20px; height:20px; font-size:0.54rem; }
-    .lb-profit{ font-size:0.68rem; }
-    .lb-country{ font-size:0.6rem; }
+    .lb-trader{ gap:4px; }
+    .lb-trader b{ font-size:0.58rem; overflow:hidden; text-overflow:ellipsis; }
+    .lb-avatar-sm{ width:17px; height:17px; font-size:0.46rem; }
+    .lb-profit{ font-size:0.58rem; }
+    .lb-country{ font-size:0.5rem; }
   }
 
   /* SCROLL REVEAL ANIMATIONS — always active regardless of device motion setting */
