@@ -918,9 +918,9 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
     // Sort by claim amount, highest first
     const sorted = [...rows].sort((a,b) => claimValue(b.claim) - claimValue(a.claim));
     const top3 = sorted.slice(0,3);
-    const rest = sorted.slice(3);
+    const rest = sorted.slice(3, 10); // ranks 4-10 only (top 10 total on screen)
 
-    console.log('[Valetax] Rendering leaderboard with', sorted.length, 'traders. Top 3:', top3);
+    console.log('[Valetax] Rendering leaderboard with', sorted.length, 'traders total. Showing top 10. Top 3:', top3);
 
     // Render podium (order on screen: rank2, rank1/champion, rank3)
     const podium = document.getElementById('podiumGrid');
@@ -939,7 +939,7 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
       console.warn('[Valetax] Not enough traders for podium (need 3, got ' + top3.length + ')');
     }
 
-    // Render table rows (rank 4+)
+    // Render table rows (rank 4-10)
     const lb2Body = document.getElementById('lb2Body');
     lb2Body.innerHTML = rest.map((r, i) => `
       <tr>
@@ -950,7 +950,7 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
         <td class="lb-country">${r.date}</td>
       </tr>`).join('');
 
-    document.getElementById('lb2Footer').textContent = `${sorted.length} traders · Top Claim Rebate this month · scroll to see all`;
+    document.getElementById('lb2Footer').textContent = `Top 10 traders · Top Claim Rebate this month`;
   }
 
   async function loadLeaderboard(){
