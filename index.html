@@ -884,14 +884,15 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
   track.innerHTML = doubled.map(t => `<span>${t}</span>`).join('');
 
   // ============================================================
-  // LEADERBOARD DATA SOURCE — Cloudflare D1 (via Pages Function)
-  // This calls /api/leaderboard, a serverless function (see functions/api/leaderboard.js)
-  // that reads from your D1 database. Same-origin — no CORS, no rate-limit risk.
-  // To update the leaderboard: run INSERT statements on your D1 database
-  // (Cloudflare dashboard > D1 > your database > Console), no redeploy needed.
+  // LEADERBOARD DATA SOURCE — Google Sheets CSV (Published to Web)
+  // Fetched via PapaParse, parsed, and displayed in real-time.
+  // To update the leaderboard: edit your Google Sheet, no redeploy needed.
+  // Ensure sheet is "Published to web" (File → Share → Publish to web).
   // ============================================================
 
-  // Demo fallback data (shown only if the API call fails, e.g. D1 not set up yet)
+  const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR89SQTEsm-0DdawP0zTqirhhm_yIQxgOsltJbOZwT6heJoeHR18QlJiHnAXTHpLi6wrDIHCNFsXmeO/pub?gid=0&single=true&output=csv";
+
+  // Demo fallback data (shown only if Google Sheets fetch fails or sheet is empty)
   const fallbackData = [
     { name:"Haziq_M", lot:"642", claim:"$7,704", date:"03 Jun 2026" },
     { name:"Nurul_A", lot:"588", claim:"$7,056", date:"11 Jun 2026" },
@@ -919,6 +920,8 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
     const top3 = sorted.slice(0,3);
     const rest = sorted.slice(3);
 
+    console.log('[Valetax] Rendering leaderboard with', sorted.length, 'traders. Top 3:', top3);
+
     // Render podium (order on screen: rank2, rank1/champion, rank3)
     const podium = document.getElementById('podiumGrid');
     if(podium && top3.length === 3){
@@ -932,6 +935,8 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
           <div class="podium-country">${r.lot} LOT</div>
         </div>`;
       podium.innerHTML = cardHTML(top3[1], 2, false) + cardHTML(top3[0], 1, true) + cardHTML(top3[2], 3, false);
+    } else if(podium){
+      console.warn('[Valetax] Not enough traders for podium (need 3, got ' + top3.length + ')');
     }
 
     // Render table rows (rank 4+)
@@ -950,20 +955,46 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
 
   async function loadLeaderboard(){
     try{
-      console.log('[Valetax] Fetching leaderboard from /api/leaderboard ...');
-      const res = await fetch('/api/leaderboard');
-      if(!res.ok) throw new Error('API responded with status ' + res.status);
-      const data = await res.json();
-      console.log('[Valetax] Received', data.length, 'rows from D1:', data);
-      const rows = (data || []).map(r => ({
-        name: r.name,
-        lot: r.total_lot || '',
-        claim: r.total_claim || '$0',
-        date: r.date_joined || ''
-      }));
-      renderLeaderboard(rows.length ? rows : fallbackData);
+      console.log('[Valetax] Fetching leaderboard from Google Sheets CSV...');
+      const response = await fetch(SHEET_CSV_URL);
+      if(!response.ok) throw new Error('Sheet fetch failed: ' + response.status);
+      
+      const csvText = await response.text();
+      console.log('[Valetax] CSV text received, length:', csvText.length);
+      
+      // Parse CSV using PapaParse
+      Papa.parse(csvText, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          console.log('[Valetax] PapaParse complete. Rows:', results.data.length, 'Errors:', results.errors);
+          
+          if(results.data.length === 0){
+            console.warn('[Valetax] Google Sheet returned 0 rows. Using fallback data.');
+            renderLeaderboard(fallbackData);
+            return;
+          }
+          
+          // Map CSV columns to internal format (flexible, case-insensitive)
+          const rows = results.data.map(row => {
+            const name = row.Name || row.name || '';
+            const lot = row.TotalLot || row.totalLot || row.total_lot || '';
+            const claim = row.TotalClaim || row.totalClaim || row.total_claim || '$0';
+            const date = row.DateJoined || row.dateJoined || row.date_joined || '';
+            
+            return { name, lot, claim, date };
+          }).filter(r => r.name); // Filter out empty rows
+          
+          console.log('[Valetax] Mapped', rows.length, 'trader rows from Google Sheet:', rows);
+          renderLeaderboard(rows.length > 0 ? rows : fallbackData);
+        },
+        error: (err) => {
+          console.error('[Valetax] PapaParse error:', err);
+          renderLeaderboard(fallbackData);
+        }
+      });
     } catch(err){
-      console.error('[Valetax] Failed to fetch /api/leaderboard — falling back to demo data. This is expected if D1 isn\'t set up yet, or if you\'re testing locally without Cloudflare Functions running. Error:', err);
+      console.error('[Valetax] Failed to fetch Google Sheets CSV. Falling back to demo data. Error:', err);
       renderLeaderboard(fallbackData);
     }
   }
