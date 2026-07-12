@@ -260,7 +260,7 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
   @keyframes scroll{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
   @media (max-width:600px){
     .ticker-track span{ font-size:9px; }
-    .ticker-track{ animation-duration:5s; }
+    .ticker-track{ animation-duration:10s; }
   }
 
   /* SECTIONS */
@@ -371,6 +371,29 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
   .podium-pct{ color:#4CD08A; font-family:'IBM Plex Mono'; font-weight:600; margin-top:6px; font-size:0.98rem; }
   .podium-country{ color:#6E8A7A; font-size:0.7rem; margin-top:6px; text-transform:uppercase; letter-spacing:.04em; }
 
+  /* MEDAL SHIMMER — gold (1st), silver (2nd), bronze (3rd) */
+  .podium-card:nth-child(1) .podium-avatar{
+    background:linear-gradient(120deg,#9E9E9E,#F2F2F2,#BDBDBD,#F2F2F2,#9E9E9E);
+    background-size:300% 300%; color:#3a3a3a;
+    animation:medalShineSilver 3.2s ease-in-out infinite, medalGlowSilver 2.4s ease-in-out infinite;
+  }
+  .podium-card.champion .podium-avatar{
+    background:linear-gradient(120deg,#B8860B,#FFE066,#FFD700,#FFF3B0,#B8860B);
+    background-size:300% 300%; color:#4a3400;
+    animation:medalShineGold 2.8s ease-in-out infinite, medalGlowGold 2.1s ease-in-out infinite;
+  }
+  .podium-card:nth-child(3) .podium-avatar{
+    background:linear-gradient(120deg,#8B5A2B,#E8A87C,#CD7F32,#F0C08A,#8B5A2B);
+    background-size:300% 300%; color:#3a1f00;
+    animation:medalShineBronze 3.6s ease-in-out infinite, medalGlowBronze 2.7s ease-in-out infinite;
+  }
+  @keyframes medalShineGold{ 0%,100%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } }
+  @keyframes medalShineSilver{ 0%,100%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } }
+  @keyframes medalShineBronze{ 0%,100%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } }
+  @keyframes medalGlowGold{ 0%,100%{ box-shadow:0 0 8px rgba(255,215,0,0.45); } 50%{ box-shadow:0 0 20px rgba(255,215,0,0.9); } }
+  @keyframes medalGlowSilver{ 0%,100%{ box-shadow:0 0 7px rgba(200,200,200,0.4); } 50%{ box-shadow:0 0 16px rgba(224,224,224,0.85); } }
+  @keyframes medalGlowBronze{ 0%,100%{ box-shadow:0 0 7px rgba(205,127,50,0.4); } 50%{ box-shadow:0 0 16px rgba(205,127,50,0.85); } }
+
   .lbtable-wrap{ background:#0F221A; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; box-shadow:0 10px 24px rgba(15,34,26,0.12); }
   .lbtable-scroll{ max-height:420px; overflow-y:auto; }
   .lbtable-scroll table{ width:100%; border-collapse:collapse; }
@@ -393,7 +416,20 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
   .lb-status .dot{ width:6px; height:6px; border-radius:50%; background:#4CD08A; }
   .lbtable-footer{ text-align:center; padding:15px; font-family:'IBM Plex Mono'; font-size:0.74rem; color:#6E8A7A; border-top:1px solid rgba(255,255,255,0.08); }
 
-  @media (max-width:700px){ .podium-grid{ grid-template-columns:1fr; } .podium-card.champion{ order:-1; transform:none; } }
+  @media (max-width:700px){
+    .podium-grid{ grid-template-columns:1fr 1.05fr 1fr; gap:8px; margin:28px 0 20px; align-items:end; }
+    .podium-card{ padding:16px 8px; border-radius:12px; }
+    .podium-card.champion{ padding-top:24px; transform:translateY(-8px); }
+    .podium-card.champion:hover{ transform:translateY(-8px); }
+    .podium-avatar{ width:38px; height:38px; font-size:0.68rem; margin:0 auto 8px; }
+    .podium-card.champion .podium-avatar{ width:46px; height:46px; font-size:0.78rem; }
+    .podium-rank{ font-size:0.68rem; }
+    .podium-card.champion .podium-rank{ font-size:1.3rem; }
+    .podium-name{ font-size:0.74rem; margin-top:4px; }
+    .podium-pct{ font-size:0.8rem; margin-top:4px; }
+    .podium-country{ font-size:0.56rem; margin-top:4px; }
+    .champion-badge{ font-size:0.5rem; padding:3px 8px; top:-10px; }
+  }
 
   .steps{ display:flex; align-items:stretch; gap:0; }
   .step-card{ flex:1 1 0; min-width:0; }
@@ -464,6 +500,24 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
     .prize-grid{ grid-template-columns:1fr; }
     .lb-top3{ grid-template-columns:1fr; }
     table{ font-size:0.8rem; }
+  }
+
+  @media (max-width:600px){
+    .lbtable-scroll{ overflow-x:hidden; }
+    .lbtable-scroll table{ width:100%; table-layout:fixed; }
+    .lbtable-scroll th{ padding:8px 3px; font-size:0.52rem; letter-spacing:0; }
+    .lbtable-scroll th:nth-child(1){ width:9%; }
+    .lbtable-scroll th:nth-child(2){ width:34%; }
+    .lbtable-scroll th:nth-child(3){ width:17%; }
+    .lbtable-scroll th:nth-child(4){ width:20%; }
+    .lbtable-scroll th:nth-child(5){ width:20%; }
+    .lbtable-scroll td{ padding:9px 3px; font-size:0.66rem; }
+    .lbtable-scroll td, .lbtable-scroll th{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .lb-trader{ gap:5px; }
+    .lb-trader b{ font-size:0.68rem; overflow:hidden; text-overflow:ellipsis; }
+    .lb-avatar-sm{ width:20px; height:20px; font-size:0.54rem; }
+    .lb-profit{ font-size:0.68rem; }
+    .lb-country{ font-size:0.6rem; }
   }
 
   /* SCROLL REVEAL ANIMATIONS — always active regardless of device motion setting */
@@ -663,7 +717,7 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
       <div class="lbtable-scroll">
         <table>
           <thead>
-            <tr><th>Rank</th><th>Name</th><th>Total Lot</th><th>Total Claim</th><th>Date Joined</th></tr>
+            <tr><th>Rank</th><th>Name</th><th>Lot</th><th>Claim</th><th>Joined</th></tr>
           </thead>
           <tbody id="lb2Body"></tbody>
         </table>
