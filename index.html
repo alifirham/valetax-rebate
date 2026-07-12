@@ -248,20 +248,28 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
   .term-row{ display:flex; justify-content:space-between; font-size:0.86rem; padding:7px 0; color:#C7DBD0; }
   .term-row b{ color:#fff; font-weight:600; }
 
-  /* TICKER */
+  /* TICKER — single name slides in from right, holds, slides out left */
   .ticker-bar{ background:var(--ink); border-top:1px solid rgba(255,255,255,0.08); border-bottom:1px solid rgba(255,255,255,0.08); overflow:hidden; margin-top:64px; }
-  .ticker-track{ display:flex; white-space:nowrap; animation:scroll 60s linear infinite; }
-  .ticker-track span{ flex-shrink:0; }
-  @media (hover:hover) and (pointer:fine){
-    .ticker-bar:hover .ticker-track{ animation-play-state:paused; }
+  .ticker-track{ position:relative; height:46px; overflow:hidden; }
+  .ticker-item{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    text-align:center; padding:0 24px;
+    font-family:'IBM Plex Mono'; font-size:0.82rem; color:#C7DBD0;
+    animation:tickerSlide 3s ease-in-out forwards;
   }
-  .ticker-track span{ transition:color .2s ease; }
-  .ticker-track span:hover{ color:#fff; }
-  .ticker-track span{ font-family:'IBM Plex Mono'; font-size:0.82rem; color:#C7DBD0; padding:13px 32px; border-right:1px solid rgba(255,255,255,0.08); }
-  .ticker-track span b{ color:#4CD08A; }
-  @keyframes scroll{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  .ticker-item b{ color:#4CD08A; }
+  @keyframes tickerSlide{
+    0%{ transform:translateX(100%); opacity:0; }
+    15%{ transform:translateX(0); opacity:1; }
+    85%{ transform:translateX(0); opacity:1; }
+    100%{ transform:translateX(-100%); opacity:0; }
+  }
+  @media (hover:hover) and (pointer:fine){
+    .ticker-bar:hover .ticker-item{ animation-play-state:paused; }
+  }
   @media (max-width:600px){
-    .ticker-track span{ font-size:9px; }
+    .ticker-track{ height:34px; }
+    .ticker-item{ font-size:9px; padding:0 16px; }
   }
 
   /* SECTIONS */
@@ -548,7 +556,7 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
   }
   .reveal-scale.is-visible{ opacity:1; transform:translateY(0) scale(1); }
 
-  .ticker-track{ animation-play-state:running; }
+
 
   nav.nav-scrolled{ box-shadow:0 1px 0 rgba(15,34,26,0.04), 0 10px 24px rgba(15,34,26,0.05); }
 
@@ -954,13 +962,19 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
     "Kumar a/l Doraisamy just joined from 🇲🇾 Malaysia"
   ];
   const track = document.getElementById('tickerTrack');
-  const doubled = [...tickerItems, ...tickerItems];
-  track.innerHTML = doubled.map(t => `<span>${t}</span>`).join('');
 
-  // Set ticker speed so each name is visible ~2-4s (avg 3s), scaled to total name count.
-  // Doubled content + translateX(-50%) means one full loop = one pass through tickerItems.length names.
-  const tickerDuration = tickerItems.length * 3; // 3s average visibility per name
-  track.style.animationDuration = tickerDuration + 's';
+  // Cycle through names one at a time: slide in from right, hold, slide out left (3s each)
+  let tickerIndex = 0;
+  function showNextTickerItem(){
+    track.innerHTML = '';
+    const item = document.createElement('div');
+    item.className = 'ticker-item';
+    item.textContent = tickerItems[tickerIndex];
+    track.appendChild(item);
+    tickerIndex = (tickerIndex + 1) % tickerItems.length;
+    item.addEventListener('animationend', showNextTickerItem, { once:true });
+  }
+  showNextTickerItem();
 
   // ============================================================
   // MOBILE VIDEO AUTOPLAY FIX
