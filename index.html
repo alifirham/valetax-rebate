@@ -51,7 +51,7 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
     --shadow:0 1px 2px rgba(15,34,26,0.04), 0 8px 24px rgba(15,34,26,0.06);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  @media (prefers-reduced-motion: no-preference){ html{ scroll-behavior:smooth; } }
+  html{ scroll-behavior:smooth; }
   body{
     background:var(--bg);
     color:var(--ink);
@@ -208,7 +208,6 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
     0%,100%{ box-shadow:0 0 0 0 rgba(185,138,46,0.0); }
     50%{ box-shadow:0 0 0 6px rgba(185,138,46,0.12); }
   }
-  @media (prefers-reduced-motion: reduce){ .rate-alert{ animation:none; } }
   @media (max-width:600px){ .rate-alert{ text-align:left; font-size:0.88rem; } }
   .hero-ctas-center{ display:flex; gap:12px; justify-content:center; margin-top:34px; flex-wrap:wrap; }
   .btn-dark-ghost{
@@ -259,6 +258,10 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
   .ticker-track span{ font-family:'IBM Plex Mono'; font-size:0.82rem; color:#C7DBD0; padding:13px 32px; border-right:1px solid rgba(255,255,255,0.08); }
   .ticker-track span b{ color:#4CD08A; }
   @keyframes scroll{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  @media (max-width:600px){
+    .ticker-track span{ font-size:9px; }
+    .ticker-track{ animation-duration:5s; }
+  }
 
   /* SECTIONS */
   section{ padding:90px 0; }
@@ -403,7 +406,6 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
     0%,100%{ transform:translateX(0); opacity:.6; }
     50%{ transform:translateX(5px); opacity:1; }
   }
-  @media (prefers-reduced-motion: reduce){ .step-arrow svg{ animation:none; } }
   @media (max-width:900px){
     .steps{ flex-wrap:wrap; gap:20px; }
     .step-card{ flex:1 1 calc(50% - 10px); }
@@ -464,43 +466,53 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
     table{ font-size:0.8rem; }
   }
 
-  /* SCROLL REVEAL ANIMATIONS */
-  @media (prefers-reduced-motion: no-preference){
-    .reveal{
-      opacity:0; transform:translateY(26px);
-      transition:opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
-    }
-    .reveal.is-visible{ opacity:1; transform:translateY(0); }
-
-    .reveal-group > *{
-      opacity:0; transform:translateY(26px);
-      transition:opacity .6s cubic-bezier(.16,.8,.3,1), transform .6s cubic-bezier(.16,.8,.3,1);
-    }
-    .reveal-group.is-visible > *{ opacity:1; transform:translateY(0); }
-    .reveal-group.is-visible > *:nth-child(1){ transition-delay:.02s; }
-    .reveal-group.is-visible > *:nth-child(2){ transition-delay:.10s; }
-    .reveal-group.is-visible > *:nth-child(3){ transition-delay:.18s; }
-    .reveal-group.is-visible > *:nth-child(4){ transition-delay:.26s; }
-    .reveal-group.is-visible > *:nth-child(5){ transition-delay:.34s; }
-    .reveal-group.is-visible > *:nth-child(6){ transition-delay:.42s; }
-    .reveal-group.is-visible > *:nth-child(7){ transition-delay:.50s; }
-    .reveal-group.is-visible > *:nth-child(8){ transition-delay:.58s; }
-
-    .reveal-scale{
-      opacity:0; transform:translateY(20px) scale(.97);
-      transition:opacity .6s cubic-bezier(.16,.8,.3,1), transform .6s cubic-bezier(.16,.8,.3,1);
-    }
-    .reveal-scale.is-visible{ opacity:1; transform:translateY(0) scale(1); }
-
-    .ticker-track{ animation-play-state:running; }
-
-    nav.nav-scrolled{ box-shadow:0 1px 0 rgba(15,34,26,0.04), 0 10px 24px rgba(15,34,26,0.05); }
+  /* SCROLL REVEAL ANIMATIONS — always active regardless of device motion setting */
+  .reveal{
+    opacity:0; transform:translateY(26px);
+    transition:opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
   }
-  @media (prefers-reduced-motion: reduce){
-    .reveal, .reveal-group > *, .reveal-scale{ opacity:1; transform:none; }
-    .hero::after{ animation:none; }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  .reveal-group > *{
+    opacity:0; transform:translateY(26px);
+    transition:opacity .6s cubic-bezier(.16,.8,.3,1), transform .6s cubic-bezier(.16,.8,.3,1);
+  }
+  .reveal-group.is-visible > *{ opacity:1; transform:translateY(0); }
+  .reveal-group.is-visible > *:nth-child(1){ transition-delay:.02s; }
+  .reveal-group.is-visible > *:nth-child(2){ transition-delay:.10s; }
+  .reveal-group.is-visible > *:nth-child(3){ transition-delay:.18s; }
+  .reveal-group.is-visible > *:nth-child(4){ transition-delay:.26s; }
+  .reveal-group.is-visible > *:nth-child(5){ transition-delay:.34s; }
+  .reveal-group.is-visible > *:nth-child(6){ transition-delay:.42s; }
+  .reveal-group.is-visible > *:nth-child(7){ transition-delay:.50s; }
+  .reveal-group.is-visible > *:nth-child(8){ transition-delay:.58s; }
+
+  .reveal-scale{
+    opacity:0; transform:translateY(20px) scale(.97);
+    transition:opacity .6s cubic-bezier(.16,.8,.3,1), transform .6s cubic-bezier(.16,.8,.3,1);
+  }
+  .reveal-scale.is-visible{ opacity:1; transform:translateY(0) scale(1); }
+
+  .ticker-track{ animation-play-state:running; }
+
+  nav.nav-scrolled{ box-shadow:0 1px 0 rgba(15,34,26,0.04), 0 10px 24px rgba(15,34,26,0.05); }
+
+  /* WHATSAPP FLOATING BUTTON */
+  .whatsapp-float{
+    position:fixed; right:22px; bottom:22px; z-index:999;
+    width:58px; height:58px; border-radius:50%;
+    background:#25D366; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 14px rgba(0,0,0,0.25), 0 1px 3px rgba(0,0,0,0.15);
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
+  }
+  .whatsapp-float:hover{ transform:scale(1.08); box-shadow:0 6px 20px rgba(0,0,0,0.3); }
+  .whatsapp-float svg{ width:30px; height:30px; }
+  @media (max-width:600px){
+    .whatsapp-float{ right:16px; bottom:16px; width:52px; height:52px; }
+    .whatsapp-float svg{ width:27px; height:27px; }
   }
 </style>
+
 </head>
 <body>
 
@@ -736,6 +748,13 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"
     <p class="disclaimer">Foreign exchange and CFD trading carries a high level of risk and may not be suitable for all investors. Past performance does not guarantee future results. Please read the Risk Disclosure before joining this promotion. This is a sample design page only.</p>
   </div>
 </footer>
+
+<a href="https://wa.me/60172948007" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12.031 0C5.463 0 .132 5.334.132 11.905c0 2.098.55 4.145 1.594 5.951L0 24l6.29-1.65a11.86 11.86 0 0 0 5.741 1.462h.005c6.567 0 11.9-5.334 11.9-11.905C23.936 5.334 18.605 0 12.031 0zm6.988 18.879a9.821 9.821 0 0 1-6.984 2.895h-.004a9.833 9.833 0 0 1-5.014-1.372l-.36-.213-3.73.978.997-3.636-.235-.373a9.821 9.821 0 0 1-1.503-5.253c0-5.437 4.428-9.862 9.87-9.862a9.803 9.803 0 0 1 6.98 2.888 9.795 9.795 0 0 1 2.888 6.964c0 5.437-4.428 9.862-9.905 9.984z"/>
+  </svg>
+</a>
 
 <script>
   // Countdown - promo ends 31 July 2026, 11:59:59pm
