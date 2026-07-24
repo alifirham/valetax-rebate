@@ -360,7 +360,7 @@
     }
     .vlx-lbt-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
     table.vlx-lbt-table{
-      width:100%; border-collapse:collapse; min-width:420px;
+      width:100%; border-collapse:collapse;
     }
     .vlx-lbt-table thead th{
       font-family:'Inter',sans-serif; font-weight:600; font-size:11.5px;
@@ -393,7 +393,13 @@
     .vlx-lbt-empty{ padding:32px 18px; text-align:center; color:var(--text-dim); font-size:14px; }
 
     @media (max-width:480px){
-      .vlx-lbt-table td, .vlx-lbt-table th{ padding:11px 12px; font-size:13.5px; }
+      .vlx-lbt-table td, .vlx-lbt-table th{ padding:11px 8px; font-size:13px; }
+      .vlx-lbt-table th:first-child, .vlx-lbt-table td:first-child{ padding-left:12px; }
+      .vlx-lbt-table th:last-child, .vlx-lbt-table td:last-child{ padding-right:12px; }
+      .vlx-lbt-table th.vlx-lbt-col-rank, .vlx-lbt-table td.vlx-lbt-col-rank{ width:48px; }
+      .vlx-lbt-badge{ width:25px; height:25px; font-size:12px; }
+      .vlx-lbt-name{ font-size:13.5px; overflow-wrap:anywhere; }
+      .vlx-lbt-pct{ font-size:14px; white-space:nowrap; }
     }
   </style>
 
