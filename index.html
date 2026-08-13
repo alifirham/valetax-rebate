@@ -28,7 +28,7 @@
 
   LINK REGISTER: dah dipasang (ma.valetaxglobal.com/p/6105261)
   LINK SUPPORT: dah dipasang (t.me/m/6vHkL95EZGFl)
-  GAMBAR FEEDBACK: img/feedback-01.webp .. feedback-13.webp (dah terpasang)
+  GAMBAR FEEDBACK: img/feedback-01.webp .. feedback-10.webp (dah terpasang)
   META PIXEL: 1009649055177482 — PageView + Lead (register) + Contact (telegram)
 ============================================================ -->
 
@@ -541,6 +541,45 @@ html{scroll-padding-top:76px}
 .proof-note{
   text-align:center;color:var(--dim);font-size:12.5px;
   margin-top:26px;padding:0 24px;letter-spacing:.02em;
+}
+#fbTrack .slide{cursor:zoom-in}
+#fbTrack .slide img{-webkit-tap-highlight-color:transparent}
+
+/* ---------- lightbox ---------- */
+.lightbox{
+  position:fixed;inset:0;z-index:200;
+  display:flex;align-items:center;justify-content:center;
+  padding:28px;
+  background:rgba(4,6,5,.92);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;
+  transition:opacity .25s ease,visibility .25s ease;
+}
+.lightbox.active{opacity:1;visibility:visible}
+.lightbox img{
+  max-width:min(92vw,520px);max-height:88vh;
+  width:auto;height:auto;object-fit:contain;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  transform:scale(.94);
+  transition:transform .25s ease;
+  pointer-events:none;
+}
+.lightbox.active img{transform:scale(1)}
+.lightbox-close{
+  position:absolute;top:18px;right:18px;
+  width:42px;height:42px;border-radius:50%;flex:none;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.16);
+  color:var(--ink);cursor:pointer;display:grid;place-items:center;
+  transition:border-color .2s ease,background .2s ease,transform .15s ease;
+}
+.lightbox-close:hover{border-color:var(--neon);color:var(--neon);background:rgba(0,255,136,.08)}
+.lightbox-close:active{transform:scale(.92)}
+.lightbox-close svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+@media (max-width:640px){
+  .lightbox-close{top:14px;right:14px;width:38px;height:38px}
 }
 
 
@@ -1126,9 +1165,6 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
       <div class="slide"><img src="img/feedback-08.webp" alt="Trader feedback 8" loading="lazy"></div>
       <div class="slide"><img src="img/feedback-09.webp" alt="Trader feedback 9" loading="lazy"></div>
       <div class="slide"><img src="img/feedback-10.webp" alt="Trader feedback 10" loading="lazy"></div>
-      <div class="slide"><img src="img/feedback-11.webp" alt="Trader feedback 11" loading="lazy"></div>
-      <div class="slide"><img src="img/feedback-12.webp" alt="Trader feedback 12" loading="lazy"></div>
-      <div class="slide"><img src="img/feedback-13.webp" alt="Trader feedback 13" loading="lazy"></div>
       <div class="slide" aria-hidden="true"><img src="img/feedback-01.webp" alt="" loading="lazy"></div>
       <div class="slide" aria-hidden="true"><img src="img/feedback-02.webp" alt="" loading="lazy"></div>
       <div class="slide" aria-hidden="true"><img src="img/feedback-03.webp" alt="" loading="lazy"></div>
@@ -1139,9 +1175,6 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
       <div class="slide" aria-hidden="true"><img src="img/feedback-08.webp" alt="" loading="lazy"></div>
       <div class="slide" aria-hidden="true"><img src="img/feedback-09.webp" alt="" loading="lazy"></div>
       <div class="slide" aria-hidden="true"><img src="img/feedback-10.webp" alt="" loading="lazy"></div>
-      <div class="slide" aria-hidden="true"><img src="img/feedback-11.webp" alt="" loading="lazy"></div>
-      <div class="slide" aria-hidden="true"><img src="img/feedback-12.webp" alt="" loading="lazy"></div>
-      <div class="slide" aria-hidden="true"><img src="img/feedback-13.webp" alt="" loading="lazy"></div>
     </div>
   </div>
 
@@ -1151,6 +1184,12 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
   </div>
   <p class="proof-note">Results shown are from individual traders and are not a guarantee of future outcomes.</p>
 </section>
+
+<!-- ================= LIGHTBOX (feedback zoom) ================= -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <img id="lightboxImg" src="" alt="">
+</div>
 
 <!-- ================= DIVIDER ================= -->
 <section class="divider">
@@ -1413,6 +1452,7 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
       drag = true; vel = 0; tween = null;
       sx = x; sp = X; lx = x; lt = performance.now();
       track.classList.add("drag");
+      track._dragged = false;
     }
     function move(x){
       if (!drag) return;
@@ -1420,6 +1460,7 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
       if (dt > 0) vel = (x - lx) / dt;
       lx = x; lt = now;
       X = sp + (x - sx);
+      if (Math.abs(x - sx) > 6) track._dragged = true;
       wrapX(); apply();
     }
     function up(){
@@ -1455,6 +1496,36 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
   }
   makeMarquee({ wrap:"marquee",   track:"mqTrack", prev:"mqPrev", next:"mqNext", speed:32 });
   makeMarquee({ wrap:"fbMarquee", track:"fbTrack", prev:"fbPrev", next:"fbNext", speed:44 });
+
+  /* ---------- feedback lightbox (tap to zoom) ---------- */
+  (function(){
+    var lb = document.getElementById("lightbox");
+    var lbImg = document.getElementById("lightboxImg");
+    var lbClose = document.getElementById("lightboxClose");
+    var fbTrack = document.getElementById("fbTrack");
+    if (!lb || !lbImg || !fbTrack) return;
+
+    function openLB(src, alt){
+      lbImg.src = src; lbImg.alt = alt || "";
+      lb.classList.add("active");
+      lb.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+    function closeLB(){
+      lb.classList.remove("active");
+      lb.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+    fbTrack.querySelectorAll(".slide img").forEach(function(img){
+      img.addEventListener("click", function(){
+        if (fbTrack._dragged) return; // was a swipe, not a tap
+        openLB(img.src, img.alt);
+      });
+    });
+    lbClose.addEventListener("click", closeLB);
+    lb.addEventListener("click", function(e){ if (e.target === lb) closeLB(); });
+    document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeLB(); });
+  })();
 
   window.addEventListener("scroll", chrome, { passive: true });
   chrome();
