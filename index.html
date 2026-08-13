@@ -28,6 +28,7 @@
 
   LINK REGISTER: dah dipasang (ma.valetaxglobal.com/p/6105261)
   LINK SUPPORT: dah dipasang (t.me/m/6vHkL95EZGFl)
+  GAMBAR FEEDBACK: img/feedback-01.webp .. feedback-13.webp (dah terpasang)
   META PIXEL: 1009649055177482 — PageView + Lead (register) + Contact (telegram)
 ============================================================ -->
 
@@ -91,7 +92,7 @@ body{
 }
 .hero h1{
   font-family:var(--display);
-  font-size:clamp(44px,10vw,120px);
+  font-size:clamp(38px,8.4vw,96px);
   line-height:.92;letter-spacing:-.01em;
   position:relative;z-index:2;text-transform:uppercase;
 }
@@ -100,8 +101,45 @@ body{
   display:block;
 }
 .hero-x{
-  font-family:var(--display);color:var(--neon);
-  font-size:clamp(20px,4vw,34px);margin:14px 0;position:relative;z-index:2;
+  display:flex;align-items:center;gap:18px;
+  font-family:var(--display);color:var(--dim);
+  font-size:clamp(15px,2.6vw,22px);margin:22px 0;position:relative;z-index:2;
+  width:min(86vw,560px);
+}
+.hero-x span{
+  flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,var(--neon-line));
+}
+.hero-x span:last-child{
+  background:linear-gradient(270deg,transparent,var(--neon-line));
+}
+.hero-rebate{position:relative;z-index:2;text-align:center}
+.hr-label{
+  font-family:var(--display);text-transform:uppercase;
+  font-size:clamp(15px,3.4vw,26px);letter-spacing:.34em;
+  color:var(--ink);margin-bottom:2px;padding-left:.34em;
+}
+.hr-amount{
+  font-family:var(--display);line-height:.9;
+  font-size:clamp(88px,20vw,190px);
+  color:var(--neon);
+  text-shadow:0 0 26px rgba(0,255,136,.5),0 0 90px rgba(0,255,136,.3);
+  animation:rebatePulse 2.6s ease-in-out infinite;
+}
+.hr-amount sup{font-size:.34em;vertical-align:super;margin-right:.02em}
+.hr-amount em{
+  font-style:normal;font-size:.17em;letter-spacing:.14em;
+  color:var(--dim);text-shadow:none;margin-left:.06em;
+  text-transform:uppercase;
+}
+@keyframes rebatePulse{
+  50%{text-shadow:0 0 34px rgba(0,255,136,.75),0 0 130px rgba(0,255,136,.45)}
+}
+.hr-note{
+  margin-top:14px;display:inline-block;
+  border:1px solid var(--neon-line);border-radius:99px;
+  padding:8px 18px;
+  font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
 }
 .hero-sub{
   color:var(--dim);max-width:520px;margin-top:18px;font-size:16px;
@@ -418,6 +456,187 @@ footer b{color:var(--ink)}
 /* header clearance so hero content isn't hidden */
 .hero{padding-top:88px}
 
+
+/* ---------- header nav ---------- */
+.anchor{display:block;position:relative;top:-70px;visibility:hidden}
+html{scroll-padding-top:76px}
+.head-nav{
+  position:relative;display:flex;align-items:center;gap:4px;
+  margin-left:auto;margin-right:14px;
+}
+.head-nav a{
+  position:relative;z-index:2;
+  color:var(--dim);text-decoration:none;
+  font-size:13px;font-weight:500;letter-spacing:.02em;
+  padding:8px 14px;border-radius:9px;white-space:nowrap;
+  transition:color .25s ease;
+}
+.head-nav a:hover{color:var(--ink)}
+.head-nav a.on{color:var(--neon)}
+.nav-ink{
+  position:absolute;z-index:1;top:50%;left:0;height:32px;width:0;
+  transform:translateY(-50%);border-radius:9px;
+  background:rgba(0,255,136,.1);border:1px solid var(--neon-line);
+  opacity:0;transition:transform .35s cubic-bezier(.4,0,.2,1),width .35s cubic-bezier(.4,0,.2,1),opacity .25s ease;
+  pointer-events:none;
+}
+.nav-ink.on{opacity:1}
+.head-right{display:flex;align-items:center;gap:10px}
+.nav-toggle{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:40px;height:38px;padding:0 9px;
+  background:transparent;border:1px solid rgba(255,255,255,.16);
+  border-radius:10px;cursor:pointer;
+}
+.nav-toggle i{display:block;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .3s ease,opacity .2s ease}
+.nav-toggle[aria-expanded="true"] i:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] i:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ---------- proof / feedback slider ---------- */
+.proof{padding:110px 0 40px;overflow:hidden}
+.proof .sec-head{padding:0 0 34px}
+.slider{position:relative;max-width:1100px;margin:0 auto;padding:0 24px}
+.track{
+  display:flex;gap:18px;
+  cursor:grab;user-select:none;
+  transition:transform .5s cubic-bezier(.22,.9,.3,1);
+  will-change:transform;
+}
+.track.drag{cursor:grabbing;transition:none}
+.slide{
+  flex:0 0 auto;
+  height:clamp(300px,42vw,420px);
+  border-radius:20px;overflow:hidden;position:relative;
+  border:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.3));
+  transition:border-color .35s ease,transform .45s ease,box-shadow .35s ease;
+}
+.slide img{height:100%;width:auto;max-width:none;object-fit:contain;display:block;pointer-events:none}
+.slide.mid{
+  border-color:var(--neon-line);
+  box-shadow:0 0 44px rgba(0,255,136,.16);
+  transform:scale(1.04);
+}
+.slide .ph-proof{width:220px;
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:12px;text-align:center;padding:22px;
+  color:var(--dim);
+}
+.slide .ph-proof b{
+  font-family:var(--display);color:var(--neon);
+  font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+}
+.slide .ph-proof small{font-size:12px;line-height:1.6;letter-spacing:.04em}
+.slide .ph-proof .icn{font-size:34px;opacity:.55}
+.slider-fade{
+  position:absolute;top:0;bottom:0;width:70px;z-index:3;pointer-events:none;
+}
+.slider-fade.l{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.slider-fade.r{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.slider-ctrl{
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  margin-top:30px;
+}
+.s-btn{
+  width:46px;height:46px;border-radius:50%;flex:none;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);
+  color:var(--ink);cursor:pointer;display:grid;place-items:center;
+  transition:border-color .2s ease,background .2s ease,transform .15s ease;
+}
+.s-btn:hover{border-color:var(--neon);color:var(--neon);background:rgba(0,255,136,.06)}
+.s-btn:active{transform:scale(.93)}
+.s-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dots{display:flex;gap:8px;align-items:center}
+.dot{
+  width:7px;height:7px;border-radius:99px;flex:none;
+  background:rgba(255,255,255,.2);border:0;padding:0;cursor:pointer;
+  transition:width .3s ease,background .3s ease;
+}
+.dot.on{width:24px;background:var(--neon);box-shadow:0 0 10px rgba(0,255,136,.5)}
+.proof-note{
+  text-align:center;color:var(--dim);font-size:12.5px;
+  margin-top:26px;padding:0 24px;letter-spacing:.02em;
+}
+
+
+/* ---------- prize summary: animated marquee slider ---------- */
+.summary{padding:110px 0 30px;overflow:hidden}
+.summary .sec-head{padding:0 0 40px}
+
+.marquee{
+  position:relative;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+}
+.mq-track{
+  display:flex;gap:18px;width:max-content;
+  cursor:grab;touch-action:pan-y;
+  will-change:transform;
+}
+.mq-track.drag{cursor:grabbing}
+.mq-track.drag .pcard{transition:none}
+
+.pcard{
+  flex:0 0 232px;
+  border:1px solid rgba(255,255,255,.09);border-radius:20px;
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(0,0,0,.28));
+  padding:18px 18px 20px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:border-color .3s ease,box-shadow .3s ease,transform .3s ease;
+}
+.pcard:hover{
+  border-color:var(--neon);
+  box-shadow:0 0 40px rgba(0,255,136,.18);
+  transform:translateY(-5px);
+}
+.pcard-media{
+  height:120px;width:100%;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:13px;
+  background:radial-gradient(ellipse at 50% 65%,rgba(0,255,136,.13),transparent 70%);
+}
+.pcard-media img{
+  max-width:100%;max-height:100%;
+  width:auto;height:auto;object-fit:contain;
+  filter:drop-shadow(0 10px 16px rgba(0,0,0,.6));
+}
+.pcard-lot{
+  font-family:var(--display);color:var(--neon);
+  font-size:26px;line-height:1;letter-spacing:-.01em;
+}
+.pcard-lot small{
+  font-family:var(--body);font-weight:500;font-size:10px;
+  letter-spacing:.24em;color:var(--dim);text-transform:uppercase;
+  margin-left:6px;
+}
+.pcard-name{
+  font-size:14.5px;font-weight:500;color:var(--ink);line-height:1.35;
+  margin-top:-6px;
+}
+.pcard.grand{
+  border-color:rgba(255,209,102,.42);
+  background:linear-gradient(180deg,rgba(255,209,102,.1),rgba(0,0,0,.3));
+}
+.pcard.grand:hover{
+  border-color:var(--gold);
+  box-shadow:0 0 46px rgba(255,209,102,.24);
+}
+.pcard.grand .pcard-lot{color:var(--gold)}
+.pcard.grand .pcard-media{background:radial-gradient(ellipse at 50% 65%,rgba(255,209,102,.16),transparent 70%)}
+.pcard.grand .pcard-name{color:var(--gold);font-family:var(--display);text-transform:uppercase;font-size:13px}
+.pcard .tag{
+  display:inline-block;font-weight:700;font-size:9px;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:#04120b;background:var(--gold);
+  padding:3px 8px;border-radius:99px;margin-top:7px;
+}
+.sum-foot{
+  text-align:center;color:var(--dim);font-size:13px;
+  margin-top:34px;padding:0 24px;line-height:1.7;
+}
+.sum-foot b{color:var(--neon)}
+
 /* ---------- responsive ---------- */
 /* ===== tablet ===== */
 @media(max-width:900px){
@@ -428,8 +647,41 @@ footer b{color:var(--ink)}
 }
 
 /* ===== mobile: same design language, tuned proportions ===== */
+@media(max-width:1000px){
+  .head-nav{
+    position:fixed;top:0;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:2px;
+    margin:0;padding:78px 20px 24px;
+    background:rgba(4,9,14,.97);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--neon-line);
+    transform:translateY(-102%);transition:transform .4s cubic-bezier(.4,0,.2,1);
+    z-index:-1;
+  }
+  .head-nav.open{transform:none}
+  .head-nav a{
+    font-size:17px;padding:15px 12px;border-radius:12px;
+    border-bottom:1px solid rgba(255,255,255,.05);
+  }
+  .head-nav a:last-of-type{border-bottom:0}
+  .nav-ink{display:none}
+  .nav-toggle{display:flex}
+}
+
 @media(max-width:600px){
   .wrap{padding:0 18px}
+  .summary{padding:88px 0 20px}
+  .pcard{flex:0 0 186px;padding:15px 15px 17px;gap:12px}
+  .pcard-media{height:96px}
+  .pcard-lot{font-size:22px}
+  .pcard-name{font-size:13.5px}
+  .mq-track{gap:14px}
+  .proof{padding:88px 0 30px}
+  .slider{padding:0 18px}
+  .slide{height:clamp(250px,66vw,320px)}
+  .slider-fade{width:38px}
+  .slider-ctrl{margin-top:24px;gap:12px}
+  .s-btn{width:42px;height:42px}
 
   /* header keeps both mark and CTA — just tighter */
   .site-head{padding:11px 16px}
@@ -441,7 +693,9 @@ footer b{color:var(--ink)}
   /* hero */
   .hero{padding:104px 20px 0}
   .hero-eyebrow{font-size:10.5px;letter-spacing:.24em;padding:7px 15px;margin-bottom:22px}
-  .hero-sub{font-size:15px;line-height:1.65;max-width:none;padding:0 4px}
+  .hero-sub{font-size:14.5px;line-height:1.65;max-width:none;padding:0 4px;margin-top:22px}
+  .hero-x{margin:16px 0;gap:12px}
+  .hr-note{font-size:10px;letter-spacing:.12em;padding:7px 14px;margin-top:11px}
   .hero-grid{background-size:40px 40px}
   @keyframes gridDrift{to{background-position:40px 40px,40px 40px}}
 
@@ -491,7 +745,7 @@ footer b{color:var(--ink)}
   .support-fab{padding:9px;gap:0}
 }
 @media(prefers-reduced-motion:reduce){
-  .hero-grid,.scroll-cue::after{animation:none}
+  .hero-grid,.scroll-cue::after,.hr-amount{animation:none}
   .strip,.badge,.prize-media,.divider .big{transform:none!important}
   .step,.rp{opacity:1;transform:none;transition:none}
 }
@@ -516,7 +770,20 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
 
 <header class="site-head" id="siteHead">
   <div class="head-mark"><i></i>Trade &amp; Claim <span>× Self Rebate</span></div>
-  <a class="head-cta js-register" data-loc="header" href="https://ma.valetaxglobal.com/p/6105261" target="_blank" rel="noopener">Join Now</a>
+
+  <nav class="head-nav" id="headNav" aria-label="Sections">
+    <a href="#how" data-nav>How It Works</a>
+    <a href="#prizes" data-nav>Prizes</a>
+    <a href="#summary" data-nav>All Prizes</a>
+    <a href="#feedback" data-nav>Feedback</a>
+    <a href="#rebate" data-nav>Self Rebate</a>
+    <span class="nav-ink" id="navInk" aria-hidden="true"></span>
+  </nav>
+
+  <div class="head-right">
+    <a class="head-cta js-register" data-loc="header" href="https://ma.valetaxglobal.com/p/6105261" target="_blank" rel="noopener">Join Now</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
+  </div>
 </header>
 
 <a class="support-fab js-support" id="supportFab" data-loc="fab" href="https://t.me/m/6vHkL95EZGFl" target="_blank" rel="noopener" aria-label="Contact support on Telegram">
@@ -529,15 +796,20 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
 <!-- ================= HERO ================= -->
 <header class="hero">
   <div class="hero-grid"></div>
-  <div class="hero-eyebrow">Official Promo</div>
+  <div class="hero-eyebrow">2 Promos · 1 Account</div>
   <h1>Trade<span class="ln2">&amp; Claim</span></h1>
-  <div class="hero-x">× Self Rebate $14</div>
-  <p class="hero-sub">Every lot you trade counts. <b>Stack lots, claim prizes</b> — and get <b>$14 USD rebate straight into your account</b>. Two promos, one account.</p>
+  <div class="hero-x"><span></span>×<span></span></div>
+  <div class="hero-rebate">
+    <div class="hr-label">Self Rebate</div>
+    <div class="hr-amount"><sup>$</sup>14<em>/ lot</em></div>
+    <div class="hr-note">USD · auto-credited every lot · until 31 Aug 2026</div>
+  </div>
+  <p class="hero-sub">Every lot works twice: <b>stack lots to claim prizes</b> up to a Ford Mustang, while <b>$14 USD lands in your account per lot</b> — automatically.</p>
   <div class="scroll-cue">Scroll</div>
 </header>
 
 <!-- ================= HOW IT WORKS ================= -->
-<section class="wrap">
+<section class="wrap" id="how">
   <div class="sec-head">
     <div class="sec-eyebrow">Promo 01 — Trade &amp; Claim</div>
     <h2>Trade Lots,<br>Claim Prizes</h2>
@@ -554,6 +826,7 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
 <!-- ================= PRIZE JOURNEY ================= -->
 <!-- Setiap .prize: data-lot (nombor), strip text, badge text, media -->
 
+<span id="prizes" class="anchor"></span>
 <!-- SWAP-IMG-01 : Merchandise (5 lot) -->
 <section class="prize" data-lot="5">
   <div class="prize-stick">
@@ -724,13 +997,175 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
   </div>
 </section>
 
+
+
+<!-- ================= PRIZE SUMMARY TABLE ================= -->
+<section class="summary" id="summary">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Full Prize List</div>
+    <h2>Every Tier,<br>One Look</h2>
+    <p>Ten tiers. Hit the lot target, claim the reward. <b>Counter resets monthly.</b></p>
+  </div>
+
+  <div class="marquee" id="marquee">
+    <div class="mq-track" id="mqTrack">
+        <div class="pcard">
+          <div class="pcard-media"><img src="img/merchandise.webp" alt="Exclusive Merchandise" loading="lazy"></div>
+          <div class="pcard-lot">5<small>Lot</small></div>
+          <div class="pcard-name">Exclusive Merchandise</div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-media"><img src="img/rm500.webp" alt="Cash RM500" loading="lazy"></div>
+          <div class="pcard-lot">40<small>Lot</small></div>
+          <div class="pcard-name">Cash RM500</div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-media"><img src="img/goldbar.webp" alt="Gold Bar" loading="lazy"></div>
+          <div class="pcard-lot">50<small>Lot</small></div>
+          <div class="pcard-name">Gold Bar</div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-media"><img src="img/ipad.webp" alt="iPad" loading="lazy"></div>
+          <div class="pcard-lot">100<small>Lot</small></div>
+          <div class="pcard-name">iPad</div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-media"><img src="img/iphone.webp" alt="iPhone" loading="lazy"></div>
+          <div class="pcard-lot">150<small>Lot</small></div>
+          <div class="pcard-name">iPhone</div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-media"><img src="img/motor-ev.webp" alt="Electric Motorcycle" loading="lazy"></div>
+          <div class="pcard-lot">200<small>Lot</small></div>
+          <div class="pcard-name">Electric Motorcycle</div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-media"><img src="img/y15.webp" alt="Yamaha Y15" loading="lazy"></div>
+          <div class="pcard-lot">300<small>Lot</small></div>
+          <div class="pcard-name">Yamaha Y15</div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-media"><img src="img/rm10k.webp" alt="Cash RM10,000" loading="lazy"></div>
+          <div class="pcard-lot">500<small>Lot</small></div>
+          <div class="pcard-name">Cash RM10,000</div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-media"><img src="img/myvi.webp" alt="Perodua Myvi" loading="lazy"></div>
+          <div class="pcard-lot">1,000<small>Lot</small></div>
+          <div class="pcard-name">Perodua Myvi</div>
+        </div>
+        <div class="pcard grand">
+          <div class="pcard-media"><img src="img/mustang.webp" alt="Ford Mustang" loading="lazy"></div>
+          <div class="pcard-lot">10,000<small>Lot</small></div>
+          <div class="pcard-name">Ford Mustang<span class="tag">Grand Prize</span></div>
+        </div>
+        <div class="pcard" aria-hidden="true">
+          <div class="pcard-media"><img src="img/merchandise.webp" alt="" loading="lazy"></div>
+          <div class="pcard-lot">5<small>Lot</small></div>
+          <div class="pcard-name">Exclusive Merchandise</div>
+        </div>
+        <div class="pcard" aria-hidden="true">
+          <div class="pcard-media"><img src="img/rm500.webp" alt="" loading="lazy"></div>
+          <div class="pcard-lot">40<small>Lot</small></div>
+          <div class="pcard-name">Cash RM500</div>
+        </div>
+        <div class="pcard" aria-hidden="true">
+          <div class="pcard-media"><img src="img/goldbar.webp" alt="" loading="lazy"></div>
+          <div class="pcard-lot">50<small>Lot</small></div>
+          <div class="pcard-name">Gold Bar</div>
+        </div>
+        <div class="pcard" aria-hidden="true">
+          <div class="pcard-media"><img src="img/ipad.webp" alt="" loading="lazy"></div>
+          <div class="pcard-lot">100<small>Lot</small></div>
+          <div class="pcard-name">iPad</div>
+        </div>
+        <div class="pcard" aria-hidden="true">
+          <div class="pcard-media"><img src="img/iphone.webp" alt="" loading="lazy"></div>
+          <div class="pcard-lot">150<small>Lot</small></div>
+          <div class="pcard-name">iPhone</div>
+        </div>
+        <div class="pcard" aria-hidden="true">
+          <div class="pcard-media"><img src="img/motor-ev.webp" alt="" loading="lazy"></div>
+          <div class="pcard-lot">200<small>Lot</small></div>
+          <div class="pcard-name">Electric Motorcycle</div>
+        </div>
+        <div class="pcard" aria-hidden="true">
+          <div class="pcard-media"><img src="img/y15.webp" alt="" loading="lazy"></div>
+          <div class="pcard-lot">300<small>Lot</small></div>
+          <div class="pcard-name">Yamaha Y15</div>
+        </div>
+        <div class="pcard" aria-hidden="true">
+          <div class="pcard-media"><img src="img/rm10k.webp" alt="" loading="lazy"></div>
+          <div class="pcard-lot">500<small>Lot</small></div>
+          <div class="pcard-name">Cash RM10,000</div>
+        </div>
+        <div class="pcard" aria-hidden="true">
+          <div class="pcard-media"><img src="img/myvi.webp" alt="" loading="lazy"></div>
+          <div class="pcard-lot">1,000<small>Lot</small></div>
+          <div class="pcard-name">Perodua Myvi</div>
+        </div>
+        <div class="pcard grand" aria-hidden="true">
+          <div class="pcard-media"><img src="img/mustang.webp" alt="" loading="lazy"></div>
+          <div class="pcard-lot">10,000<small>Lot</small></div>
+          <div class="pcard-name">Ford Mustang<span class="tag">Grand Prize</span></div>
+        </div>
+    </div>
+  </div>
+
+  <div class="slider-ctrl">
+    <button class="s-btn" id="mqPrev" aria-label="Previous prizes"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="s-btn" id="mqNext" aria-label="Next prizes"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+
+  <p class="sum-foot">
+    Lot counted per calendar month · <b>Claim through admin before month end</b><br>
+    Untraded lots do not carry over to the next month.
+  </p>
+</section>
+
+<!-- ================= FEEDBACK SLIDER ================= -->
+<section class="proof" id="feedback">
+  <div class="sec-head">
+    <div class="sec-eyebrow">From Our Traders</div>
+    <h2>Real<br>Feedback</h2>
+    <p>Real withdrawals and prize claims from traders on this promo. <b>Swipe to see more.</b></p>
+  </div>
+
+  <div class="slider" id="slider">
+    <div class="slider-fade l"></div>
+    <div class="slider-fade r"></div>
+    <div class="track" id="track">
+      <div class="slide"><img src="img/feedback-01.webp" alt="Trader feedback 1" loading="lazy"></div>
+      <div class="slide"><img src="img/feedback-02.webp" alt="Trader feedback 2" loading="lazy"></div>
+      <div class="slide"><img src="img/feedback-03.webp" alt="Trader feedback 3" loading="lazy"></div>
+      <div class="slide"><img src="img/feedback-04.webp" alt="Trader feedback 4" loading="lazy"></div>
+      <div class="slide"><img src="img/feedback-05.webp" alt="Trader feedback 5" loading="lazy"></div>
+      <div class="slide"><img src="img/feedback-06.webp" alt="Trader feedback 6" loading="lazy"></div>
+      <div class="slide"><img src="img/feedback-07.webp" alt="Trader feedback 7" loading="lazy"></div>
+      <div class="slide"><img src="img/feedback-08.webp" alt="Trader feedback 8" loading="lazy"></div>
+      <div class="slide"><img src="img/feedback-09.webp" alt="Trader feedback 9" loading="lazy"></div>
+      <div class="slide"><img src="img/feedback-10.webp" alt="Trader feedback 10" loading="lazy"></div>
+      <div class="slide"><img src="img/feedback-11.webp" alt="Trader feedback 11" loading="lazy"></div>
+      <div class="slide"><img src="img/feedback-12.webp" alt="Trader feedback 12" loading="lazy"></div>
+      <div class="slide"><img src="img/feedback-13.webp" alt="Trader feedback 13" loading="lazy"></div>
+    </div>
+  </div>
+
+  <div class="slider-ctrl">
+    <button class="s-btn" id="sPrev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="dots" id="dots"></div>
+    <button class="s-btn" id="sNext" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+  <p class="proof-note">Results shown are from individual traders and are not a guarantee of future outcomes.</p>
+</section>
+
 <!-- ================= DIVIDER ================= -->
 <section class="divider">
   <div class="big" id="divBig">That Was <b>Just Promo One</b></div>
 </section>
 
 <!-- ================= SELF REBATE ================= -->
-<section class="rebate">
+<section class="rebate" id="rebate">
   <div class="rebate-hero">
     <div class="sec-eyebrow">Promo 02 — Self Rebate</div>
     <div class="rebate-amount"><sup>$</sup><span id="rebateNum" data-count="14">0</span></div>
@@ -902,6 +1337,240 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
     if (depthHit[90]) window.removeEventListener("scroll", depth);
   }
   window.addEventListener("scroll", depth, { passive: true });
+
+
+  /* ---------- header nav: mobile toggle + scroll spy + ink ---------- */
+  var headNav = document.getElementById("headNav");
+  var navToggle = document.getElementById("navToggle");
+  var navLinks = [].slice.call(document.querySelectorAll("[data-nav]"));
+  var navInk = document.getElementById("navInk");
+
+  if (navToggle){
+    navToggle.addEventListener("click", function(){
+      var open = headNav.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
+  navLinks.forEach(function(a){
+    a.addEventListener("click", function(){
+      headNav.classList.remove("open");
+      if (navToggle) navToggle.setAttribute("aria-expanded","false");
+    });
+  });
+
+  function moveInk(el){
+    if (!navInk || !el || window.innerWidth <= 1000){ if(navInk) navInk.classList.remove("on"); return; }
+    navInk.style.width = el.offsetWidth + "px";
+    navInk.style.transform = "translate(" + el.offsetLeft + "px,-50%)";
+    navInk.classList.add("on");
+  }
+  function spy(){
+    var best = null, bestTop = -Infinity;
+    navLinks.forEach(function(a){
+      var t = document.querySelector(a.getAttribute("href"));
+      if (!t) return;
+      var top = t.getBoundingClientRect().top - 90;
+      if (top <= 0 && top > bestTop){ bestTop = top; best = a; }
+    });
+    navLinks.forEach(function(a){ a.classList.toggle("on", a === best); });
+    moveInk(best);
+  }
+  window.addEventListener("scroll", spy, { passive:true });
+  window.addEventListener("resize", spy);
+  spy();
+
+
+  /* ---------- prize marquee: auto-scroll + drag + momentum ---------- */
+  var marquee = document.getElementById("marquee");
+  var mqTrack = document.getElementById("mqTrack");
+  if (marquee && mqTrack){
+    var mqX = 0, mqHalf = 0, mqSpeed = 32;          /* px per second */
+    var mqVisible = false, mqDrag = false, mqVel = 0;
+    var mqStartX = 0, mqStartPos = 0, mqLastX = 0, mqLastT = 0;
+    var mqLastFrame = null;
+
+    function mqMeasure(){
+      mqHalf = mqTrack.scrollWidth / 2;
+    }
+    function mqWrap(){
+      if (!mqHalf) return;
+      while (mqX <= -mqHalf) mqX += mqHalf;
+      while (mqX > 0) mqX -= mqHalf;
+    }
+    function mqFrame(ts){
+      if (mqLastFrame === null) mqLastFrame = ts;
+      var dt = Math.min((ts - mqLastFrame) / 1000, .05);
+      mqLastFrame = ts;
+      if (mqVisible && !mqDrag){
+        if (mqTween){                      /* arrow step tween */
+          mqTween.t += dt;
+          var p = Math.min(mqTween.t / mqTween.dur, 1);
+          p = 1 - Math.pow(1 - p, 3);      /* ease-out cubic */
+          mqX = mqTween.from + (mqTween.to - mqTween.from) * p;
+          if (p >= 1) mqTween = null;
+        } else if (Math.abs(mqVel) > 8){   /* momentum after release */
+          mqX += mqVel * dt;
+          mqVel *= Math.pow(.0025, dt);    /* exponential decay */
+        } else if (!reduced){
+          mqVel = 0;
+          mqX -= mqSpeed * dt;             /* cruise */
+        }
+        mqWrap();
+        mqTrack.style.transform = "translateX(" + mqX + "px)";
+      }
+      requestAnimationFrame(mqFrame);
+    }
+
+    function mqDown(x){
+      mqDrag = true; mqVel = 0; mqTween = null;
+      mqStartX = x; mqStartPos = mqX;
+      mqLastX = x; mqLastT = performance.now();
+      mqTrack.classList.add("drag");
+    }
+    function mqMove(x){
+      if (!mqDrag) return;
+      var now = performance.now();
+      var dt = (now - mqLastT) / 1000;
+      if (dt > 0) mqVel = (x - mqLastX) / dt;
+      mqLastX = x; mqLastT = now;
+      mqX = mqStartPos + (x - mqStartX);
+      mqWrap();
+      mqTrack.style.transform = "translateX(" + mqX + "px)";
+    }
+    function mqUp(){
+      if (!mqDrag) return;
+      mqDrag = false;
+      mqTrack.classList.remove("drag");
+      mqVel = Math.max(-1600, Math.min(1600, mqVel));
+    }
+
+    mqTrack.addEventListener("mousedown", function(e){ e.preventDefault(); mqDown(e.clientX); });
+    window.addEventListener("mousemove", function(e){ mqMove(e.clientX); });
+    window.addEventListener("mouseup", mqUp);
+    mqTrack.addEventListener("touchstart", function(e){ mqDown(e.touches[0].clientX); }, { passive:true });
+    mqTrack.addEventListener("touchmove", function(e){ mqMove(e.touches[0].clientX); }, { passive:true });
+    mqTrack.addEventListener("touchend", mqUp);
+    mqTrack.addEventListener("touchcancel", mqUp);
+
+    /* arrow step: tween one card width, then resume cruise */
+    var mqTween = null;
+    function mqStep(){
+      var card = mqTrack.querySelector(".pcard");
+      var gap = parseFloat(getComputedStyle(mqTrack).gap) || 18;
+      return (card ? card.offsetWidth : 232) + gap;
+    }
+    function mqGo(dir){
+      mqVel = 0;
+      mqTween = { from: mqX, to: mqX - dir * mqStep(), t: 0, dur: .45 };
+    }
+    document.getElementById("mqPrev").addEventListener("click", function(){ mqGo(-1); });
+    document.getElementById("mqNext").addEventListener("click", function(){ mqGo(1); });
+
+    new IntersectionObserver(function(en){
+      mqVisible = en[0].isIntersecting;
+      if (mqVisible) mqMeasure();
+    }, { threshold: 0 }).observe(marquee);
+    window.addEventListener("resize", mqMeasure);
+    window.addEventListener("load", mqMeasure);
+    mqMeasure();
+    requestAnimationFrame(mqFrame);
+  }
+
+  /* ---------- proof slider: drag / arrows / dots / autoplay ---------- */
+  var track = document.getElementById("track");
+  if (track){
+    var slides = [].slice.call(track.children).filter(function(n){ return n.classList && n.classList.contains("slide"); });
+    var dotsBox = document.getElementById("dots");
+    var idx = 0, dragging = false, startX = 0, startTx = 0, tx = 0, moved = 0, auto = null;
+
+    function maxShift(){
+      return Math.max(0, track.scrollWidth - track.parentElement.clientWidth);
+    }
+    function maxIdx(){
+      var ms = maxShift();
+      for (var i = 0; i < slides.length; i++){
+        if (slides[i].offsetLeft >= ms) return i;
+      }
+      return slides.length - 1;
+    }
+    function go(i, animate){
+      idx = Math.max(0, Math.min(i, maxIdx()));
+      tx = -Math.min(slides[idx].offsetLeft, maxShift());
+      track.classList.toggle("drag", animate === false);
+      track.style.transform = "translateX(" + tx + "px)";
+      if (animate === false) requestAnimationFrame(function(){ track.classList.remove("drag"); });
+      paint();
+    }
+    function paint(){
+      [].slice.call(dotsBox.children).forEach(function(d,i){ d.classList.toggle("on", i === idx); });
+      var mid = track.parentElement.getBoundingClientRect();
+      var cx = mid.left + mid.width/2;
+      slides.forEach(function(sl){
+        var r = sl.getBoundingClientRect();
+        sl.classList.toggle("mid", Math.abs(r.left + r.width/2 - cx) < r.width*0.55);
+      });
+    }
+    function buildDots(){
+      dotsBox.innerHTML = "";
+      for (var i = 0; i <= maxIdx(); i++){
+        var b = document.createElement("button");
+        b.className = "dot"; b.type = "button";
+        b.setAttribute("aria-label", "Go to slide " + (i+1));
+        (function(n){ b.addEventListener("click", function(){ stopAuto(); go(n); }); })(i);
+        dotsBox.appendChild(b);
+      }
+      paint();
+    }
+
+    document.getElementById("sPrev").addEventListener("click", function(){ stopAuto(); go(idx-1); });
+    document.getElementById("sNext").addEventListener("click", function(){ stopAuto(); go(idx+1); });
+
+    /* drag / swipe */
+    function down(x){ dragging = true; startX = x; startTx = tx; moved = 0; track.classList.add("drag"); stopAuto(); }
+    function move(x){
+      if (!dragging) return;
+      moved = x - startX;
+      track.style.transform = "translateX(" + (startTx + moved) + "px)";
+    }
+    function up(){
+      if (!dragging) return;
+      dragging = false; track.classList.remove("drag");
+      var target = -(startTx + moved), best = 0, bd = Infinity;
+      slides.forEach(function(sl, i){
+        var d = Math.abs(sl.offsetLeft - target);
+        if (d < bd){ bd = d; best = i; }
+      });
+      go(best);
+    }
+    track.addEventListener("mousedown", function(e){ e.preventDefault(); down(e.clientX); });
+    window.addEventListener("mousemove", function(e){ move(e.clientX); });
+    window.addEventListener("mouseup", up);
+    track.addEventListener("touchstart", function(e){ down(e.touches[0].clientX); }, { passive:true });
+    track.addEventListener("touchmove", function(e){ move(e.touches[0].clientX); }, { passive:true });
+    track.addEventListener("touchend", up);
+
+    /* keyboard */
+    track.setAttribute("tabindex","0");
+    track.addEventListener("keydown", function(e){
+      if (e.key === "ArrowLeft"){ stopAuto(); go(idx-1); }
+      if (e.key === "ArrowRight"){ stopAuto(); go(idx+1); }
+    });
+
+    /* autoplay only while section is on screen */
+    function startAuto(){
+      if (auto || reduced) return;
+      auto = setInterval(function(){ go(idx >= maxIdx() ? 0 : idx+1); }, 3600);
+    }
+    function stopAuto(){ if (auto){ clearInterval(auto); auto = null; } }
+    var sIO = new IntersectionObserver(function(en){
+      en[0].isIntersecting ? startAuto() : stopAuto();
+    }, { threshold:.35 });
+    sIO.observe(track);
+    track.addEventListener("mouseenter", stopAuto);
+
+    window.addEventListener("resize", function(){ buildDots(); go(idx, false); });
+    buildDots(); go(0, false);
+  }
 
   window.addEventListener("scroll", chrome, { passive: true });
   chrome();
