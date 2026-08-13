@@ -502,14 +502,42 @@ html{scroll-padding-top:76px}
 /* ---------- proof / feedback slider ---------- */
 .proof{padding:110px 0 40px;overflow:hidden}
 .proof .sec-head{padding:0 0 34px}
-.mq-track .slide{
+.slide{
+  flex:0 0 auto;
+  width:clamp(240px,30vw,320px);
+  aspect-ratio:1;
+  border-radius:20px;overflow:hidden;position:relative;
+  border:1px solid rgba(255,255,255,.09);
+  background:
+    radial-gradient(ellipse at 50% 60%,rgba(0,255,136,.07),transparent 70%),
+    linear-gradient(180deg,rgba(255,255,255,.045),rgba(0,0,0,.3));
+  display:flex;align-items:center;justify-content:center;
+  padding:14px;
   transition:border-color .3s ease,box-shadow .3s ease,transform .3s ease;
 }
-.mq-track .slide:hover{
+.slide img{
+  max-width:100%;max-height:100%;
+  width:auto;height:auto;object-fit:contain;
+  border-radius:10px;display:block;pointer-events:none;
+}
+.slide:hover{
   border-color:var(--neon);
   box-shadow:0 0 40px rgba(0,255,136,.18);
   transform:translateY(-5px);
 }
+.slider-ctrl{
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  margin-top:32px;
+}
+.s-btn{
+  width:46px;height:46px;border-radius:50%;flex:none;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);
+  color:var(--ink);cursor:pointer;display:grid;place-items:center;
+  transition:border-color .2s ease,background .2s ease,transform .15s ease;
+}
+.s-btn:hover{border-color:var(--neon);color:var(--neon);background:rgba(0,255,136,.06)}
+.s-btn:active{transform:scale(.93)}
+.s-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .proof-note{
   text-align:center;color:var(--dim);font-size:12.5px;
   margin-top:26px;padding:0 24px;letter-spacing:.02em;
@@ -633,9 +661,9 @@ html{scroll-padding-top:76px}
   .pcard-name{font-size:13.5px}
   .mq-track{gap:14px}
   .proof{padding:88px 0 30px}
-  .slide{height:clamp(250px,66vw,320px)}
-  .slider-ctrl{margin-top:24px;gap:12px}
-  .s-btn{width:42px;height:42px}
+  .slide{width:clamp(220px,72vw,280px);padding:11px;border-radius:16px}
+  .slider-ctrl{margin-top:24px;gap:14px;width:100%;justify-content:center}
+  .s-btn{width:44px;height:44px}
 
   /* header keeps both mark and CTA — just tighter */
   .site-head{padding:11px 16px}
