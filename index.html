@@ -502,64 +502,14 @@ html{scroll-padding-top:76px}
 /* ---------- proof / feedback slider ---------- */
 .proof{padding:110px 0 40px;overflow:hidden}
 .proof .sec-head{padding:0 0 34px}
-.slider{position:relative;max-width:1100px;margin:0 auto;padding:0 24px}
-.track{
-  display:flex;gap:18px;
-  cursor:grab;user-select:none;
-  transition:transform .5s cubic-bezier(.22,.9,.3,1);
-  will-change:transform;
+.mq-track .slide{
+  transition:border-color .3s ease,box-shadow .3s ease,transform .3s ease;
 }
-.track.drag{cursor:grabbing;transition:none}
-.slide{
-  flex:0 0 auto;
-  height:clamp(300px,42vw,420px);
-  border-radius:20px;overflow:hidden;position:relative;
-  border:1px solid rgba(255,255,255,.09);
-  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.3));
-  transition:border-color .35s ease,transform .45s ease,box-shadow .35s ease;
+.mq-track .slide:hover{
+  border-color:var(--neon);
+  box-shadow:0 0 40px rgba(0,255,136,.18);
+  transform:translateY(-5px);
 }
-.slide img{height:100%;width:auto;max-width:none;object-fit:contain;display:block;pointer-events:none}
-.slide.mid{
-  border-color:var(--neon-line);
-  box-shadow:0 0 44px rgba(0,255,136,.16);
-  transform:scale(1.04);
-}
-.slide .ph-proof{width:220px;
-  position:absolute;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:12px;text-align:center;padding:22px;
-  color:var(--dim);
-}
-.slide .ph-proof b{
-  font-family:var(--display);color:var(--neon);
-  font-size:13px;letter-spacing:.2em;text-transform:uppercase;
-}
-.slide .ph-proof small{font-size:12px;line-height:1.6;letter-spacing:.04em}
-.slide .ph-proof .icn{font-size:34px;opacity:.55}
-.slider-fade{
-  position:absolute;top:0;bottom:0;width:70px;z-index:3;pointer-events:none;
-}
-.slider-fade.l{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
-.slider-fade.r{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
-.slider-ctrl{
-  display:flex;align-items:center;justify-content:center;gap:16px;
-  margin-top:30px;
-}
-.s-btn{
-  width:46px;height:46px;border-radius:50%;flex:none;
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);
-  color:var(--ink);cursor:pointer;display:grid;place-items:center;
-  transition:border-color .2s ease,background .2s ease,transform .15s ease;
-}
-.s-btn:hover{border-color:var(--neon);color:var(--neon);background:rgba(0,255,136,.06)}
-.s-btn:active{transform:scale(.93)}
-.s-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.dots{display:flex;gap:8px;align-items:center}
-.dot{
-  width:7px;height:7px;border-radius:99px;flex:none;
-  background:rgba(255,255,255,.2);border:0;padding:0;cursor:pointer;
-  transition:width .3s ease,background .3s ease;
-}
-.dot.on{width:24px;background:var(--neon);box-shadow:0 0 10px rgba(0,255,136,.5)}
 .proof-note{
   text-align:center;color:var(--dim);font-size:12.5px;
   margin-top:26px;padding:0 24px;letter-spacing:.02em;
@@ -683,9 +633,7 @@ html{scroll-padding-top:76px}
   .pcard-name{font-size:13.5px}
   .mq-track{gap:14px}
   .proof{padding:88px 0 30px}
-  .slider{padding:0 18px}
   .slide{height:clamp(250px,66vw,320px)}
-  .slider-fade{width:38px}
   .slider-ctrl{margin-top:24px;gap:12px}
   .s-btn{width:42px;height:42px}
 
@@ -1138,10 +1086,8 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
     <p>Real withdrawals and prize claims from traders on this promo. <b>Swipe to see more.</b></p>
   </div>
 
-  <div class="slider" id="slider">
-    <div class="slider-fade l"></div>
-    <div class="slider-fade r"></div>
-    <div class="track" id="track">
+  <div class="marquee" id="fbMarquee">
+    <div class="mq-track" id="fbTrack">
       <div class="slide"><img src="img/feedback-01.webp" alt="Trader feedback 1" loading="lazy"></div>
       <div class="slide"><img src="img/feedback-02.webp" alt="Trader feedback 2" loading="lazy"></div>
       <div class="slide"><img src="img/feedback-03.webp" alt="Trader feedback 3" loading="lazy"></div>
@@ -1155,13 +1101,25 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
       <div class="slide"><img src="img/feedback-11.webp" alt="Trader feedback 11" loading="lazy"></div>
       <div class="slide"><img src="img/feedback-12.webp" alt="Trader feedback 12" loading="lazy"></div>
       <div class="slide"><img src="img/feedback-13.webp" alt="Trader feedback 13" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-01.webp" alt="" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-02.webp" alt="" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-03.webp" alt="" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-04.webp" alt="" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-05.webp" alt="" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-06.webp" alt="" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-07.webp" alt="" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-08.webp" alt="" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-09.webp" alt="" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-10.webp" alt="" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-11.webp" alt="" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-12.webp" alt="" loading="lazy"></div>
+      <div class="slide" aria-hidden="true"><img src="img/feedback-13.webp" alt="" loading="lazy"></div>
     </div>
   </div>
 
   <div class="slider-ctrl">
-    <button class="s-btn" id="sPrev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
-    <div class="dots" id="dots"></div>
-    <button class="s-btn" id="sNext" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    <button class="s-btn" id="fbPrev" aria-label="Previous feedback"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="s-btn" id="fbNext" aria-label="Next feedback"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
   </div>
   <p class="proof-note">Results shown are from individual traders and are not a guarantee of future outcomes.</p>
 </section>
@@ -1387,167 +1345,67 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
   spy();
 
 
-  /* ---------- prize marquee: auto-scroll + drag + momentum ---------- */
-  var marquee = document.getElementById("marquee");
-  var mqTrack = document.getElementById("mqTrack");
-  if (marquee && mqTrack){
-    var mqX = 0, mqHalf = 0, mqSpeed = 32;          /* px per second */
-    var mqVisible = false, mqDrag = false, mqVel = 0;
-    var mqStartX = 0, mqStartPos = 0, mqLastX = 0, mqLastT = 0;
-    var mqLastFrame = null;
+  /* ---------- marquee engine (prizes + feedback) ---------- */
+  function makeMarquee(o){
+    var wrap = document.getElementById(o.wrap), track = document.getElementById(o.track);
+    if (!wrap || !track) return;
+    var X = 0, half = 0, vis = false, drag = false, vel = 0;
+    var sx = 0, sp = 0, lx = 0, lt = 0, last = null, tween = null;
 
-    function mqMeasure(){
-      mqHalf = mqTrack.scrollWidth / 2;
+    function measure(){ half = track.scrollWidth / 2; }
+    function wrapX(){
+      if (!half) return;
+      while (X <= -half) X += half;
+      while (X > 0) X -= half;
     }
-    function mqWrap(){
-      if (!mqHalf) return;
-      while (mqX <= -mqHalf) mqX += mqHalf;
-      while (mqX > 0) mqX -= mqHalf;
-    }
-    function mqFrame(ts){
-      if (mqLastFrame === null) mqLastFrame = ts;
-      var dt = Math.min((ts - mqLastFrame) / 1000, .05);
-      mqLastFrame = ts;
-      if (mqVisible && !mqDrag){
-        if (mqTween){                      /* arrow step tween */
-          mqTween.t += dt;
-          var p = Math.min(mqTween.t / mqTween.dur, 1);
-          p = 1 - Math.pow(1 - p, 3);      /* ease-out cubic */
-          mqX = mqTween.from + (mqTween.to - mqTween.from) * p;
-          if (p >= 1) mqTween = null;
-        } else if (Math.abs(mqVel) > 8){   /* momentum after release */
-          mqX += mqVel * dt;
-          mqVel *= Math.pow(.0025, dt);    /* exponential decay */
+    function apply(){ track.style.transform = "translateX(" + X + "px)"; }
+    function frame(ts){
+      if (last === null) last = ts;
+      var dt = Math.min((ts - last) / 1000, .05);
+      last = ts;
+      if (vis && !drag){
+        if (tween){
+          tween.t += dt;
+          var p = Math.min(tween.t / tween.dur, 1);
+          p = 1 - Math.pow(1 - p, 3);
+          X = tween.from + (tween.to - tween.from) * p;
+          if (p >= 1) tween = null;
+        } else if (Math.abs(vel) > 8){
+          X += vel * dt;
+          vel *= Math.pow(.0025, dt);
         } else if (!reduced){
-          mqVel = 0;
-          mqX -= mqSpeed * dt;             /* cruise */
+          vel = 0;
+          X -= o.speed * dt;
         }
-        mqWrap();
-        mqTrack.style.transform = "translateX(" + mqX + "px)";
+        wrapX(); apply();
       }
-      requestAnimationFrame(mqFrame);
+      requestAnimationFrame(frame);
     }
-
-    function mqDown(x){
-      mqDrag = true; mqVel = 0; mqTween = null;
-      mqStartX = x; mqStartPos = mqX;
-      mqLastX = x; mqLastT = performance.now();
-      mqTrack.classList.add("drag");
+    function down(x){
+      drag = true; vel = 0; tween = null;
+      sx = x; sp = X; lx = x; lt = performance.now();
+      track.classList.add("drag");
     }
-    function mqMove(x){
-      if (!mqDrag) return;
-      var now = performance.now();
-      var dt = (now - mqLastT) / 1000;
-      if (dt > 0) mqVel = (x - mqLastX) / dt;
-      mqLastX = x; mqLastT = now;
-      mqX = mqStartPos + (x - mqStartX);
-      mqWrap();
-      mqTrack.style.transform = "translateX(" + mqX + "px)";
-    }
-    function mqUp(){
-      if (!mqDrag) return;
-      mqDrag = false;
-      mqTrack.classList.remove("drag");
-      mqVel = Math.max(-1600, Math.min(1600, mqVel));
-    }
-
-    mqTrack.addEventListener("mousedown", function(e){ e.preventDefault(); mqDown(e.clientX); });
-    window.addEventListener("mousemove", function(e){ mqMove(e.clientX); });
-    window.addEventListener("mouseup", mqUp);
-    mqTrack.addEventListener("touchstart", function(e){ mqDown(e.touches[0].clientX); }, { passive:true });
-    mqTrack.addEventListener("touchmove", function(e){ mqMove(e.touches[0].clientX); }, { passive:true });
-    mqTrack.addEventListener("touchend", mqUp);
-    mqTrack.addEventListener("touchcancel", mqUp);
-
-    /* arrow step: tween one card width, then resume cruise */
-    var mqTween = null;
-    function mqStep(){
-      var card = mqTrack.querySelector(".pcard");
-      var gap = parseFloat(getComputedStyle(mqTrack).gap) || 18;
-      return (card ? card.offsetWidth : 232) + gap;
-    }
-    function mqGo(dir){
-      mqVel = 0;
-      mqTween = { from: mqX, to: mqX - dir * mqStep(), t: 0, dur: .45 };
-    }
-    document.getElementById("mqPrev").addEventListener("click", function(){ mqGo(-1); });
-    document.getElementById("mqNext").addEventListener("click", function(){ mqGo(1); });
-
-    new IntersectionObserver(function(en){
-      mqVisible = en[0].isIntersecting;
-      if (mqVisible) mqMeasure();
-    }, { threshold: 0 }).observe(marquee);
-    window.addEventListener("resize", mqMeasure);
-    window.addEventListener("load", mqMeasure);
-    mqMeasure();
-    requestAnimationFrame(mqFrame);
-  }
-
-  /* ---------- proof slider: drag / arrows / dots / autoplay ---------- */
-  var track = document.getElementById("track");
-  if (track){
-    var slides = [].slice.call(track.children).filter(function(n){ return n.classList && n.classList.contains("slide"); });
-    var dotsBox = document.getElementById("dots");
-    var idx = 0, dragging = false, startX = 0, startTx = 0, tx = 0, moved = 0, auto = null;
-
-    function maxShift(){
-      return Math.max(0, track.scrollWidth - track.parentElement.clientWidth);
-    }
-    function maxIdx(){
-      var ms = maxShift();
-      for (var i = 0; i < slides.length; i++){
-        if (slides[i].offsetLeft >= ms) return i;
-      }
-      return slides.length - 1;
-    }
-    function go(i, animate){
-      idx = Math.max(0, Math.min(i, maxIdx()));
-      tx = -Math.min(slides[idx].offsetLeft, maxShift());
-      track.classList.toggle("drag", animate === false);
-      track.style.transform = "translateX(" + tx + "px)";
-      if (animate === false) requestAnimationFrame(function(){ track.classList.remove("drag"); });
-      paint();
-    }
-    function paint(){
-      [].slice.call(dotsBox.children).forEach(function(d,i){ d.classList.toggle("on", i === idx); });
-      var mid = track.parentElement.getBoundingClientRect();
-      var cx = mid.left + mid.width/2;
-      slides.forEach(function(sl){
-        var r = sl.getBoundingClientRect();
-        sl.classList.toggle("mid", Math.abs(r.left + r.width/2 - cx) < r.width*0.55);
-      });
-    }
-    function buildDots(){
-      dotsBox.innerHTML = "";
-      for (var i = 0; i <= maxIdx(); i++){
-        var b = document.createElement("button");
-        b.className = "dot"; b.type = "button";
-        b.setAttribute("aria-label", "Go to slide " + (i+1));
-        (function(n){ b.addEventListener("click", function(){ stopAuto(); go(n); }); })(i);
-        dotsBox.appendChild(b);
-      }
-      paint();
-    }
-
-    document.getElementById("sPrev").addEventListener("click", function(){ stopAuto(); go(idx-1); });
-    document.getElementById("sNext").addEventListener("click", function(){ stopAuto(); go(idx+1); });
-
-    /* drag / swipe */
-    function down(x){ dragging = true; startX = x; startTx = tx; moved = 0; track.classList.add("drag"); stopAuto(); }
     function move(x){
-      if (!dragging) return;
-      moved = x - startX;
-      track.style.transform = "translateX(" + (startTx + moved) + "px)";
+      if (!drag) return;
+      var now = performance.now(), dt = (now - lt) / 1000;
+      if (dt > 0) vel = (x - lx) / dt;
+      lx = x; lt = now;
+      X = sp + (x - sx);
+      wrapX(); apply();
     }
     function up(){
-      if (!dragging) return;
-      dragging = false; track.classList.remove("drag");
-      var target = -(startTx + moved), best = 0, bd = Infinity;
-      slides.forEach(function(sl, i){
-        var d = Math.abs(sl.offsetLeft - target);
-        if (d < bd){ bd = d; best = i; }
-      });
-      go(best);
+      if (!drag) return;
+      drag = false;
+      track.classList.remove("drag");
+      vel = Math.max(-1600, Math.min(1600, vel));
+    }
+    function step(dir){
+      var card = track.firstElementChild;
+      var gap = parseFloat(getComputedStyle(track).gap) || 18;
+      var w = (card ? card.offsetWidth : 240) + gap;
+      vel = 0;
+      tween = { from: X, to: X - dir * w, t: 0, dur: .45 };
     }
     track.addEventListener("mousedown", function(e){ e.preventDefault(); down(e.clientX); });
     window.addEventListener("mousemove", function(e){ move(e.clientX); });
@@ -1555,29 +1413,20 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
     track.addEventListener("touchstart", function(e){ down(e.touches[0].clientX); }, { passive:true });
     track.addEventListener("touchmove", function(e){ move(e.touches[0].clientX); }, { passive:true });
     track.addEventListener("touchend", up);
-
-    /* keyboard */
-    track.setAttribute("tabindex","0");
-    track.addEventListener("keydown", function(e){
-      if (e.key === "ArrowLeft"){ stopAuto(); go(idx-1); }
-      if (e.key === "ArrowRight"){ stopAuto(); go(idx+1); }
-    });
-
-    /* autoplay only while section is on screen */
-    function startAuto(){
-      if (auto || reduced) return;
-      auto = setInterval(function(){ go(idx >= maxIdx() ? 0 : idx+1); }, 3600);
-    }
-    function stopAuto(){ if (auto){ clearInterval(auto); auto = null; } }
-    var sIO = new IntersectionObserver(function(en){
-      en[0].isIntersecting ? startAuto() : stopAuto();
-    }, { threshold:.35 });
-    sIO.observe(track);
-    track.addEventListener("mouseenter", stopAuto);
-
-    window.addEventListener("resize", function(){ buildDots(); go(idx, false); });
-    buildDots(); go(0, false);
+    track.addEventListener("touchcancel", up);
+    if (o.prev) document.getElementById(o.prev).addEventListener("click", function(){ step(-1); });
+    if (o.next) document.getElementById(o.next).addEventListener("click", function(){ step(1); });
+    new IntersectionObserver(function(en){
+      vis = en[0].isIntersecting;
+      if (vis) measure();
+    }, { threshold: 0 }).observe(wrap);
+    window.addEventListener("resize", measure);
+    window.addEventListener("load", measure);
+    measure();
+    requestAnimationFrame(frame);
   }
+  makeMarquee({ wrap:"marquee",   track:"mqTrack", prev:"mqPrev", next:"mqNext", speed:32 });
+  makeMarquee({ wrap:"fbMarquee", track:"fbTrack", prev:"fbPrev", next:"fbNext", speed:44 });
 
   window.addEventListener("scroll", chrome, { passive: true });
   chrome();
