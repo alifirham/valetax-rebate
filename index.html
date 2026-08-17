@@ -146,10 +146,22 @@ body{
   position:relative;z-index:2;
 }
 .hero-sub b{color:var(--ink)}
-.hero-cta{
+.hero-btns{
   margin-top:28px;position:relative;z-index:2;
+  display:flex;flex-direction:column;gap:16px;justify-content:center;align-items:center;
+}
+.hero-cta{
   padding:16px 42px;font-size:15px;
 }
+.hero-btns .btn-ghost{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:16px 30px;
+}
+.tg-mini{
+  width:22px;height:22px;border-radius:50%;flex:none;
+  background:#2AABEE;display:grid;place-items:center;
+}
+.tg-mini svg{width:12px;height:12px;fill:#fff;display:block;margin-right:1px}
 .scroll-cue{
   position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:8px;
@@ -753,7 +765,8 @@ html{scroll-padding-top:76px}
   .cta{padding:96px 20px 120px}
   .btn-row{flex-direction:column;gap:12px}
   .btn{width:100%;justify-content:center;padding:17px 24px}
-  .hero-cta{width:auto;min-width:220px;margin-top:24px;padding:16px 40px}
+  .hero-btns{flex-direction:column;gap:16px;margin-top:24px;width:100%;padding:0 8px}
+  .hero-cta{width:100%;max-width:340px;margin-top:0;padding:16px 24px;justify-content:center}
 
   /* support FAB keeps its label, sits clear of the CTA */
   .support-fab{right:16px;bottom:16px;font-size:13.5px;padding:11px 18px 11px 12px}
@@ -832,7 +845,10 @@ src="https://www.facebook.com/tr?id=1009649055177482&ev=PageView&noscript=1" alt
     <div class="hr-note">USD · auto-credited every lot · until 31 Aug 2026</div>
   </div>
   <p class="hero-sub">Every lot works twice: <b>stack lots to claim prizes</b> up to a Ford Mustang, while <b>$14 USD lands in your account per lot</b> — automatically.</p>
-  <a class="btn btn-primary hero-cta js-register" data-loc="hero" href="https://ma.valetaxglobal.com/p/6105261" target="_blank" rel="noopener">Start Now →</a>
+  <div class="hero-btns">
+    <a class="btn btn-primary hero-cta js-register" data-loc="hero" href="https://ma.valetaxglobal.com/p/6105261" target="_blank" rel="noopener">Start Now →</a>
+    <a class="btn btn-ghost hero-cta js-support" data-loc="hero" href="https://t.me/m/6vHkL95EZGFl" target="_blank" rel="noopener"><span class="tg-mini"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.94 4.3 18.9 19.1c-.23 1.02-.84 1.27-1.7.79l-4.7-3.46-2.27 2.18c-.25.25-.46.46-.95.46l.34-4.8L18.4 6.4c.38-.34-.08-.53-.6-.19L6.98 13.1l-4.65-1.45c-1.01-.32-1.03-1.01.21-1.5L20.63 2.8c.84-.31 1.58.2 1.31 1.5Z"/></svg></span>Contact Support</a>
+  </div>
   <div class="scroll-cue">Scroll</div>
 </header>
 
